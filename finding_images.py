@@ -13,11 +13,11 @@ current_datetime = datetime.now()
 
 listOfNiche = [
     "Pinterest GYM",
-    "Pinterest Inner Strength",
-    "Pinterest Imagination and Commitment",
-    "Pinterest Mindset",
-    "Pinterest Resilience",
-    "Pinterest Mind-Body Connection",
+    # "Pinterest Inner Strength",
+    # "Pinterest Imagination and Commitment",
+    # "Pinterest Mindset",
+    # "Pinterest Resilience",
+    # "Pinterest Mind-Body Connection",
     "Pinterest Discipline",
     "Pinterest Stress Management",
     "Pinterest Progress Over Perfection",
@@ -30,7 +30,7 @@ for niche in listOfNiche :
 
     # Search for images
     response = requests.get(f'{base_url}search/photos', headers=headers, params={'query': search_term, 'per_page': 1})
-    formatted_date_time = current_datetime.strftime('%d %B %H_%M_%S')
+    formatted_date_time = current_datetime.strftime('%d %B %H_%M_%S') + f"_{int(current_datetime.microsecond / 1000):03d}"
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -49,7 +49,7 @@ for niche in listOfNiche :
             # Download the image
             image_url = photo['urls']['regular']
             image_response = requests.get(image_url)
-            file_name = f'{formatted_date_time}.jpg'
+            file_name = f'{niche}{formatted_date_time}.jpg'
             
             # Define the file path for saving the image
             file_path = os.path.join(save_directory, file_name)
